@@ -69,6 +69,21 @@ namespace InventoryControlConsole
             }
         }
 
+        private static void DeleteEquipment(int arrayIndex)
+        {
+            if(equipmentArray[arrayIndex] != null)
+            {
+                equipmentArray[arrayIndex] = null;
+            }
+        }
+
+        private static void DeleteMaintenanceCall(int arrayIndex)
+        {
+            if (maintenanceCallArray[arrayIndex] != null)
+            {
+                maintenanceCallArray[arrayIndex] = null;
+            }
+        }
 
         static void Main(string[] args)
         {
