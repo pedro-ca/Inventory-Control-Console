@@ -77,23 +77,44 @@ namespace InventoryControlConsole
                         break;
                     }
                 }
+
+                Console.WriteLine("Sucessfully added " + name);
             }
             catch (Exception e)
             {
                 ShowErrorText(e.Message);
             }
         }
-        private static void RegisterMaintenanceCall(MaintenanceCall newMaintenanceCall)
+        private static void RegisterMaintenanceCall()
         {
+            try
+            {
+                Console.WriteLine("-Enter the name of the new maintenance call. ");
+                string name = Console.ReadLine();
+                Console.WriteLine("-Enter the description of the new maintenance call. ");
+                string desc = Console.ReadLine();
+                Console.WriteLine("-Enter the index of equipment new maintenance call. ");
+                string indx = Console.ReadLine();
+
+                MaintenanceCall newMaintenance = new MaintenanceCall(name, desc, equipmentArray[int.Parse(indx)], DateTime.Now);
+
                 for (int i = 0; i < maintenanceCallArray.Length; i++)
                 {
                     if (maintenanceCallArray[i] == null)
                     {
-                        maintenanceCallArray[i] = newMaintenanceCall;
+                        maintenanceCallArray[i] = newMaintenance;
                         break;
                     }
                 }
+
+                Console.WriteLine("Sucessfully added " + name);
+            }
+            catch (Exception e)
+            {
+                ShowErrorText(e.Message);
+            }
         }
+
         private static void EditEquiment(int arrayIndex)
         {
             if (!DeleteEquipment(arrayIndex))
@@ -106,7 +127,7 @@ namespace InventoryControlConsole
             }
         }
 
-        private static void EditMaintenanceCall(int arrayIndex, MaintenanceCall newMaintenanceCall)
+        private static void EditMaintenanceCall(int arrayIndex)
         {
             if (!DeleteMaintenanceCall(arrayIndex))
             {
@@ -114,7 +135,7 @@ namespace InventoryControlConsole
             }
             else
             {
-                RegisterMaintenanceCall(newMaintenanceCall);
+                RegisterMaintenanceCall();
             }
         }
 
@@ -125,6 +146,7 @@ namespace InventoryControlConsole
                 if (equipmentArray[arrayIndex] != null)
                 {
                     equipmentArray[arrayIndex] = null;
+                    Console.WriteLine("Delete operation sucessful");
                     return true;
                 }
             }
@@ -139,9 +161,10 @@ namespace InventoryControlConsole
                 if (maintenanceCallArray[arrayIndex] != null)
                 {
                     maintenanceCallArray[arrayIndex] = null;
-                    return true; ;
+                    Console.WriteLine("Delete operation sucessful");
+                    return true;
                 }
-
+                
             }
             catch (IndexOutOfRangeException){}
             return false;
@@ -152,7 +175,7 @@ namespace InventoryControlConsole
             Console.WriteLine("-+-+-+-+- EQUIPMENTS -+-+-+-+-");
             Console.WriteLine("-Enter the desired operation. Commands:");
             Console.WriteLine(" * show = Show all registered equipments and atributes.");
-            Console.WriteLine(" * regist = Register a new equipment.");
+            Console.WriteLine(" * regis = Register a new equipment.");
             Console.WriteLine(" * edit = Edit an existing equipment.");
             Console.WriteLine(" * delet = Delete an existing equipment.");
             Console.WriteLine("Equipment");
@@ -168,7 +191,7 @@ namespace InventoryControlConsole
                     break;
 
                 case "regis":
-                    Console.WriteLine("Reg");
+                    RegisterEquipment();
                     break;
 
                 case "edit":
@@ -177,7 +200,7 @@ namespace InventoryControlConsole
                     indexString = Console.ReadLine();
                     if (int.TryParse(indexString, out index))
                     {
-                        EditEquiment(index)
+                        EditEquiment(index);
                     }
                     else
                     {
@@ -192,7 +215,7 @@ namespace InventoryControlConsole
                     indexString = Console.ReadLine();
                     if(int.TryParse(indexString, out  index))
                     {
-                        if (!DeleteMaintenanceCall(index))
+                        if (!DeleteEquipment(index))
                         {
                             ShowErrorText("Operation error: Index not found or out of bounds.");
                         }
@@ -211,7 +234,64 @@ namespace InventoryControlConsole
 
         private static void MaintenanceCallControl()
         {
+            Console.WriteLine("-+-+-+-+- MAINTENANCE CALLS -+-+-+-+-");
+            Console.WriteLine("-Enter the desired operation. Commands:");
+            Console.WriteLine(" * show = Show all registered maintenances and atributes.");
+            Console.WriteLine(" * regis = Register a new maintenances.");
+            Console.WriteLine(" * edit = Edit an existing maintenances.");
+            Console.WriteLine(" * delet = Delete an existing maintenances.");
+            Console.WriteLine("Equipment");
+            string operationOption = Console.ReadLine();
 
+            string indexString;
+            int index;
+
+            switch (operationOption.ToLowerInvariant())
+            {
+                case "show":
+                    ViewMaintenanceCalls();
+                    break;
+
+                case "regis":
+                    RegisterMaintenanceCall();
+                    break;
+
+                case "edit":
+                    ViewMaintenanceCalls();
+                    Console.WriteLine("-Enter the index of the Maintenance to edit. Must be an integer.");
+                    indexString = Console.ReadLine();
+                    if (int.TryParse(indexString, out index))
+                    {
+                        EditMaintenanceCall(index);
+                    }
+                    else
+                    {
+                        ShowErrorText("Operation error: Index must be a valid integer number.");
+                    }
+
+                    break;
+
+                case "delet":
+                    ViewMaintenanceCalls();
+                    Console.WriteLine("-Enter the index of the Equipment to delete. Must be an integer.");
+                    indexString = Console.ReadLine();
+                    if (int.TryParse(indexString, out index))
+                    {
+                        if (!DeleteMaintenanceCall(index))
+                        {
+                            ShowErrorText("Operation error: Index not found or out of bounds.");
+                        }
+                    }
+                    else
+                    {
+                        ShowErrorText("Operation error: Index must be a valid integer number.");
+                    }
+                    break;
+
+                default:
+                    ShowErrorText("Operation error: Use only one of the available commands.");
+                    break;
+            }
         }
 
         static void Main(string[] args)
@@ -224,60 +304,25 @@ namespace InventoryControlConsole
                 Console.WriteLine("-Do you want to administrate Equipments or Maintenance Calls? Commands:");
                 Console.WriteLine(" * equip = Show, Register, Edit and Delete Equipments.");
                 Console.WriteLine(" * maint = Show, Register, Edit and Delete Maintenance Calls.");
-                Console.WriteLine(" * Any other commmand = Exits from the console.");
+                Console.WriteLine(" * exit = Exits from the console.");
                 string operationOption = Console.ReadLine();
 
-                if (operationOption.ToLowerInvariant() == "equip")
+                switch (operationOption.ToLowerInvariant())
                 {
-                    EquipmentControl();
+                    case "equip":
+                        EquipmentControl();
+                        break;
 
-                }
-                else if (operationOption.ToLowerInvariant() == "maint")
-                {
-                    MaintenanceCallControl();
-                }
-                else
-                {
-                    break;
+                    case "maint":
+                        MaintenanceCallControl();
+                        break;
+
+                    case "exit":
+                        return;
                 }
                 Console.ReadLine();
             }
 
-            //try
-            //{
-            //}
-            //catch (ArgumentException e)
-            //{
-            //    Console.WriteLine("Operation error: " + e.Message);
-            //}
-
-            //ViewEquipments();
-            //RegisterEquipment(equipment1);
-            //RegisterEquipment(equipment2);
-            //RegisterEquipment(equipment3);
-            //ViewEquipments();
-            //if (DeleteEquipment(5))
-            //{
-            //    Console.WriteLine("Equipment deleted sucessfully.");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Operation error: Index not found or out of bounds.");
-            //}
-            //Console.WriteLine("-------------------");
-            //ViewEquipments();
-            //RegisterEquipment(new Equipment("niggaaaaa", 58, "serialx", DateTime.Now.AddYears(-21), "manufacterX"));
-            //Console.WriteLine("-------------------");
-            //ViewEquipments();
-
-            //ViewMaintenanceCalls();
-            //RegisterMaintenanceCall(new MaintenanceCall("title1", "description1", equipment1, DateTime.Now.AddDays(-500)));
-            //RegisterMaintenanceCall(new MaintenanceCall("title2", "description3", equipment2, DateTime.Now.AddYears(-2)));
-            //RegisterMaintenanceCall(new MaintenanceCall("title3", "description3", equipment3, DateTime.Now));
-            //ViewMaintenanceCalls();
-            //EditMaintenanceCall(1, new MaintenanceCall("titleX", "description, NIGGA!", equipment3, DateTime.Now));
-            //Console.WriteLine("-------------------");
-            //ViewMaintenanceCalls();
         }
     }
 }
