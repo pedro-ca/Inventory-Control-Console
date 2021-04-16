@@ -1,9 +1,5 @@
 ﻿using InventoryControlModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace InventoryControlConsole
@@ -17,7 +13,7 @@ namespace InventoryControlConsole
         {
             for(int i=0; i < equipmentArray.Length; i++)
             {
-               if(equipmentArray[i] != null)
+                if (equipmentArray[i] != null)
                 {
                     Equipment equip = equipmentArray[i];
                     Console.WriteLine($"*Equipment {i}:");
@@ -71,6 +67,17 @@ namespace InventoryControlConsole
                 }
             }
         }
+        private static void EditEquiment(int arrayIndex, Equipment newEquipment)
+        {
+            DeleteEquipment(arrayIndex);
+            RegisterEquipment(newEquipment);
+        }
+
+        private static void EditMaintenanceCall(int arrayIndex, MaintenanceCall newMaintenanceCall)
+        {
+            DeleteMaintenanceCall(arrayIndex);
+            RegisterMaintenanceCall(newMaintenanceCall);
+        }
 
         private static void DeleteEquipment(int arrayIndex)
         {
@@ -111,10 +118,7 @@ namespace InventoryControlConsole
             //RegisterMaintenanceCall(new MaintenanceCall("title2", "description3", equipment2, DateTime.Now.AddYears(-2)));
             //RegisterMaintenanceCall(new MaintenanceCall("title3", "description3", equipment3, DateTime.Now));
             //ViewMaintenanceCalls();
-            //DeleteMaintenanceCall(1);
-            //Console.WriteLine("-------------------");
-            //ViewMaintenanceCalls();
-            //RegisterMaintenanceCall(new MaintenanceCall("titleX", "description, NIGGA!", equipment3, DateTime.Now));
+            //EditMaintenanceCall(1,new MaintenanceCall("titleX", "description, NIGGA!", equipment3, DateTime.Now));
             //Console.WriteLine("-------------------");
             //ViewMaintenanceCalls();
 
