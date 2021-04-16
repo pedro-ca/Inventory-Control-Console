@@ -19,13 +19,14 @@ namespace InventoryControlConsole
             {
                if(equipmentArray[i] != null)
                 {
-                    Console.WriteLine($"Equipment {i}:");
-                    Console.WriteLine("  -EquipmentName = " + equipmentArray[i].EquipmentName);
-                    Console.WriteLine("  -AcquisitionPrice = " + equipmentArray[i].AcquisitionPrice);
-                    Console.WriteLine("  -SerialNumber = " + equipmentArray[i].SerialNumber);
-                    Console.WriteLine("  -ManufacturingDate = " + equipmentArray[i].ManufacturingDate);
-                    Console.WriteLine("  -ManufacturerName = " + equipmentArray[i].ManufacturerName);
-                    Console.WriteLine("  -Equipment name = " + equipmentArray[i].EquipmentName);
+                    Equipment equip = equipmentArray[i];
+                    Console.WriteLine($"*Equipment {i}:");
+                    Console.WriteLine("  -EquipmentName = " + equip.EquipmentName);
+                    Console.WriteLine("  -AcquisitionPrice = " + equip.AcquisitionPrice);
+                    Console.WriteLine("  -SerialNumber = " + equip.SerialNumber);
+                    Console.WriteLine("  -ManufacturingDate = " + equip.ManufacturingDate);
+                    Console.WriteLine("  -ManufacturerName = " + equip.ManufacturerName);
+                    Console.WriteLine("  -Equipment name = " + equip.EquipmentName);
                 }
             }
         }
@@ -36,34 +37,36 @@ namespace InventoryControlConsole
             {
                 if (maintenanceCallArray[i] != null)
                 {
-                    Console.WriteLine($"Maintenance Call {i}:");
-                    Console.WriteLine("  -TitleName = " + maintenanceCallArray[i].TitleName);
-                    Console.WriteLine("  -DescriptioName = " + maintenanceCallArray[i].DescriptioName);
-                    Console.WriteLine("  -Equipment = " + maintenanceCallArray[i].Equipment.EquipmentName);
-                    Console.WriteLine("  -OpeningDate = " + maintenanceCallArray[i].OpeningDate);
+                    MaintenanceCall maint = maintenanceCallArray[i];
+                    Console.WriteLine($"*Maintenance Call {i}:");
+                    Console.WriteLine("  -TitleName = " + maint.TitleName);
+                    Console.WriteLine("  -DescriptioName = " + maint.DescriptioName);
+                    Console.WriteLine("  -Equipment = " + maint.Equipment.EquipmentName);
+                    Console.WriteLine("  -OpeningDate = " + maint.OpeningDate);
+                    Console.WriteLine("  -DaysOpen = " + (DateTime.Now - maint.OpeningDate).Days.ToString());
                 }
             }
         }
 
-        private static void RegisterEquipment(Equipment equipment)
+        private static void RegisterEquipment(Equipment newEquipment)
         {
             for (int i = 0; i < equipmentArray.Length; i++)
             {
                 if(equipmentArray[i] == null)
                 {
-                    equipmentArray[i] = equipment;
+                    equipmentArray[i] = newEquipment;
                     break;
                 }
             }
         }
 
-        private static void RegisterMaintenanceCall(MaintenanceCall maintenanceCall)
+        private static void RegisterMaintenanceCall(MaintenanceCall newMaintenanceCall)
         {
             for (int i = 0; i < maintenanceCallArray.Length; i++)
             {
                 if (maintenanceCallArray[i] == null)
                 {
-                    maintenanceCallArray[i] = maintenanceCall;
+                    maintenanceCallArray[i] = newMaintenanceCall;
                     break;
                 }
             }
@@ -87,7 +90,34 @@ namespace InventoryControlConsole
 
         static void Main(string[] args)
         {
-            ViewEquipments();
+            //Equipment equipment1 = new Equipment("nnnome1", 420, "serial", DateTime.Now, "manufacter");
+            //Equipment equipment2 = new Equipment("nnnome2", 58, "serial2", DateTime.Now.AddYears(-1), "manufacter4");
+            //Equipment equipment3 = new Equipment("nnnome3", 1337, "serial3", DateTime.Now.AddDays(-180), "manufacter4");
+
+            //ViewEquipments();
+            //RegisterEquipment(equipment1);
+            //RegisterEquipment(equipment2);
+            //RegisterEquipment(equipment3);
+            //ViewEquipments();
+            //DeleteEquipment(1);
+            //Console.WriteLine("-------------------");
+            //ViewEquipments();
+            //RegisterEquipment(new Equipment("niggaaaaa", 58, "serialx", DateTime.Now.AddYears(-21), "manufacterX"));
+            //Console.WriteLine("-------------------");
+            //ViewEquipments();
+
+            //ViewMaintenanceCalls();
+            //RegisterMaintenanceCall(new MaintenanceCall("title1", "description1", equipment1, DateTime.Now.AddDays(-500)));
+            //RegisterMaintenanceCall(new MaintenanceCall("title2", "description3", equipment2, DateTime.Now.AddYears(-2)));
+            //RegisterMaintenanceCall(new MaintenanceCall("title3", "description3", equipment3, DateTime.Now));
+            //ViewMaintenanceCalls();
+            //DeleteMaintenanceCall(1);
+            //Console.WriteLine("-------------------");
+            //ViewMaintenanceCalls();
+            //RegisterMaintenanceCall(new MaintenanceCall("titleX", "description, NIGGA!", equipment3, DateTime.Now));
+            //Console.WriteLine("-------------------");
+            //ViewMaintenanceCalls();
+
             Console.ReadLine();
 
         }
