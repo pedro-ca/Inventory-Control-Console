@@ -1,8 +1,10 @@
-﻿using System;
+﻿using InventoryControlModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace InventoryControlConsole
 {
@@ -10,6 +12,7 @@ namespace InventoryControlConsole
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
