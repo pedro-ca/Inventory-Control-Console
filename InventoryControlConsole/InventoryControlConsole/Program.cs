@@ -20,12 +20,12 @@ namespace InventoryControlConsole
                if(equipmentArray[i] != null)
                 {
                     Console.WriteLine($"Equipment {i}:");
-                    Console.WriteLine("   -EquipmentName = " + equipmentArray[i].EquipmentName);
-                    Console.WriteLine("   -AcquisitionPrice = " + equipmentArray[i].AcquisitionPrice);
-                    Console.WriteLine("   -SerialNumber = " + equipmentArray[i].SerialNumber);
-                    Console.WriteLine("   -ManufacturingDate = " + equipmentArray[i].ManufacturingDate);
-                    Console.WriteLine("   -ManufacturerName = " + equipmentArray[i].ManufacturerName);
-                    Console.WriteLine("   -Equipment name = " + equipmentArray[i].EquipmentName);
+                    Console.WriteLine("  -EquipmentName = " + equipmentArray[i].EquipmentName);
+                    Console.WriteLine("  -AcquisitionPrice = " + equipmentArray[i].AcquisitionPrice);
+                    Console.WriteLine("  -SerialNumber = " + equipmentArray[i].SerialNumber);
+                    Console.WriteLine("  -ManufacturingDate = " + equipmentArray[i].ManufacturingDate);
+                    Console.WriteLine("  -ManufacturerName = " + equipmentArray[i].ManufacturerName);
+                    Console.WriteLine("  -Equipment name = " + equipmentArray[i].EquipmentName);
                 }
             }
         }
@@ -37,16 +37,43 @@ namespace InventoryControlConsole
                 if (maintenanceCallArray[i] != null)
                 {
                     Console.WriteLine($"Maintenance Call {i}:");
-                    Console.WriteLine("   -TitleName = " + maintenanceCallArray[i].TitleName);
-                    Console.WriteLine("   -DescriptioName = " + maintenanceCallArray[i].DescriptioName);
-                    Console.WriteLine("   -Equipment = " + maintenanceCallArray[i].Equipment.EquipmentName);
-                    Console.WriteLine("   -OpeningDate = " + maintenanceCallArray[i].OpeningDate);
+                    Console.WriteLine("  -TitleName = " + maintenanceCallArray[i].TitleName);
+                    Console.WriteLine("  -DescriptioName = " + maintenanceCallArray[i].DescriptioName);
+                    Console.WriteLine("  -Equipment = " + maintenanceCallArray[i].Equipment.EquipmentName);
+                    Console.WriteLine("  -OpeningDate = " + maintenanceCallArray[i].OpeningDate);
                 }
             }
         }
 
+        private static void RegisterEquipment(Equipment equipment)
+        {
+            for (int i = 0; i < equipmentArray.Length; i++)
+            {
+                if(equipmentArray[i] == null)
+                {
+                    equipmentArray[i] = equipment;
+                    break;
+                }
+            }
+        }
+
+        private static void RegisterMaintenanceCall(MaintenanceCall maintenanceCall)
+        {
+            for (int i = 0; i < maintenanceCallArray.Length; i++)
+            {
+                if (maintenanceCallArray[i] == null)
+                {
+                    maintenanceCallArray[i] = maintenanceCall;
+                    break;
+                }
+            }
+        }
+
+
         static void Main(string[] args)
         {
+            ViewEquipments();
+            Console.ReadLine();
 
         }
     }
